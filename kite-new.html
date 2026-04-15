@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kite - Trading Platform</title>
+    <link rel="stylesheet" href="kite.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <img class="login-logo" src="https://kite.zerodha.com/static/images/kite-logo.svg" alt="Kite">
+            <div class="login-title">Login to Kite</div>
+            <input type="text" id="userId" class="login-input" placeholder="Phone or User ID">
+            <input type="password" id="password" class="login-input" placeholder="Password">
+            <button class="login-btn" onclick="login()">Login</button>
+            <div class="login-footer">
+                <a href="#">Forgot user ID or password?</a><br><br>
+                Don't have an account? <a href="#">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="appPage" class="app-container">
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <img class="header-logo" src="https://kite.zerodha.com/static/images/kite-logo.svg" alt="Kite">
+                <nav class="header-nav">
+                    <a id="nav-holdings" href="#" class="active" onclick="showSection('holdings')">Holdings</a>
+                    <a id="nav-positions" href="#" onclick="showSection('positions')">Positions</a>
+                    <a id="nav-orders" href="#" onclick="showSection('orders')">Orders</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <span class="user-info">Hi, <span id="userName">User</span></span>
+                <button class="login-btn" style="width:auto;padding:6px 15px;font-size:12px" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Sidebar - Market Watch -->
+        <div class="sidebar">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search (eg: NIFTY, RELIANCE)" onkeyup="searchStocks()">
+            </div>
+            <div class="market-watch">
+                <div class="watch-header">Market Watch</div>
+                <div id="watchList"></div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="content-title" id="contentTitle">Holdings</div>
+                <div class="portfolio-summary">
+                    <div class="summary-item">
+                        <div class="summary-label">Total Value</div>
+                        <div class="summary-value" id="totalValue">₹0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Total P&L</div>
+                        <div class="summary-value" id="totalPnl">₹0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Holdings Section -->
+            <div id="holdingsSection" class="holdings-section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Instrument</th>
+                                <th>Qty</th>
+                                <th>Avg Cost</th>
+                                <th>LTP</th>
+                                <th>Chg %</th>
+                                <th>Value</th>
+                                <th>P&L</th>
+                            </tr>
+                        </thead>
+                        <tbody id="holdingsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Positions Section -->
+            <div id="positionsSection" class="positions-section">
+                <div class="table-container">
+                    <table class="positions-table">
+                        <thead>
+                            <tr>
+                                <th>Instrument</th>
+                                <th>Type</th>
+                                <th>Qty</th>
+                                <th>Avg</th>
+                                <th>LTP</th>
+                                <th>Chg %</th>
+                                <th>P&L</th>
+                            </tr>
+                        </thead>
+                        <tbody id="positionsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="ordersSection" class="orders-section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="chart-section">
+                <div class="chart-container">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="kite.js"></script>
+</body>
+</html>
